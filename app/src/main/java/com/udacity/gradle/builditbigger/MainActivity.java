@@ -44,41 +44,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view) {
-        /*
-        Intent jokeActivityIntent = new Intent(MainActivity.this, JokesActivity.class);
-        jokeActivityIntent.putExtra(JokeConstants.EXTRAS_JOKE, Joker.getJoke());
-        startActivity(jokeActivityIntent);
-        */
-        new GetJokeAsyncTask().execute();
-    }
-
-    class GetJokeAsyncTask extends AsyncTask<Void, Void, String> {
-        private final String TAG = GetJokeAsyncTask.class.getSimpleName();
-        private MyApi myApiService = null;
-
-        @Override
-        protected String doInBackground(Void... params) {
-            if (myApiService == null) {
-                MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-                        .setRootUrl("https://builditbigger-nanodegree.appspot.com/_ah/api/");
-
-                myApiService = builder.build();
+        new GetJokesAsyncTask(new GetJokesAsyncTask.GetJokesAsyncTaskListener() {
+            @Override
+            public void onComplete(String result) {
+                Intent intent = new Intent(MainActivity.this, JokesActivity.class);
+                intent.putExtra(JokeConstants.EXTRAS_JOKE, result);
+                startActivity(intent);
             }
-
-            try {
-                Log.d(TAG, "Attempting to connect to URL");
-                return myApiService.getJoke().execute().getData();
-            } catch (IOException e) {
-                return e.getMessage();
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            Intent intent = new Intent(MainActivity.this, JokesActivity.class);
-            intent.putExtra(JokeConstants.EXTRAS_JOKE, result);
-            startActivity(intent);
-        }
+        }).execute();
     }
-
 }
