@@ -28,7 +28,8 @@ public class MainActivityFragment extends Fragment {
         // get test ads on a physical device. e.g.
         // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice(Constants.DEBUG_TARGET_FOR_AD_1)
+                .addTestDevice(Constants.DEBUG_TARGET_FOR_AD_2)
                 .build();
         mAdView.loadAd(adRequest);
         return root;
