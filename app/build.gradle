@@ -22,11 +22,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:24.1.1'
     // Added for AdMob
-    compile 'com.google.android.gms:play-services-ads:9.4.0'
     // Adding Java Library To App
     compile project(':jokemaker')
     // Adding Android Library To App
     compile project(':jokermakerandroid')
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.google.android.gms:play-services-ads:9.4.0'
+    compile 'com.google.code.findbugs:jsr305:2.0.1'
+    compile project(path: ':backend', configuration: 'android-endpoints')
 }
