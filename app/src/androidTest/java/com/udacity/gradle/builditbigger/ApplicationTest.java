@@ -24,8 +24,9 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     @Override
     protected void tearDown() throws Exception {
+        if (signal != null)
+            signal.countDown();
         super.tearDown();
-        signal.countDown();
     }
 
     public void testGetJokeAsync() throws InterruptedException {

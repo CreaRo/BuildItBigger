@@ -17,10 +17,9 @@ import java.io.IOException;
  * Created by rish on 3/11/16.
  */
 
-class GetJokesAsyncTask extends AsyncTask<Context, Void, String> {
+class GetJokesAsyncTask extends AsyncTask<Void, Void, String> {
     private final String TAG = GetJokesAsyncTask.class.getSimpleName();
     private MyApi myApiService = null;
-    Context context;
     GetJokesAsyncTaskListener listener;
 
     public GetJokesAsyncTask(GetJokesAsyncTaskListener listener) {
@@ -28,11 +27,10 @@ class GetJokesAsyncTask extends AsyncTask<Context, Void, String> {
     }
 
     @Override
-    protected String doInBackground(Context... params) {
+    protected String doInBackground(Void... params) {
         if (myApiService == null) {
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
                     .setRootUrl("https://builditbigger-nanodegree.appspot.com/_ah/api/");
-            context = params[0];
             myApiService = builder.build();
         }
 
