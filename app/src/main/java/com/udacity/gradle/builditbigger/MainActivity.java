@@ -12,9 +12,7 @@ import com.example.jokermakerandroid.JokeConstants;
 import com.example.jokermakerandroid.JokesActivity;
 
 
-public class MainActivity extends ActionBarActivity {
-
-    private ProgressDialog mProgressDialog;
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,41 +35,5 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void tellJoke(View view) {
-        showProgressDialog("Loading");
-        new GetJokesAsyncTask(new GetJokesAsyncTask.GetJokesAsyncTaskListener() {
-            @Override
-            public void onComplete(String result) {
-                hideProgressDialog();
-                Intent intent = new Intent(MainActivity.this, JokesActivity.class);
-                intent.putExtra(JokeConstants.EXTRAS_JOKE, result);
-                startActivity(intent);
-            }
-        }).execute();
-    }
-
-    public void showProgressDialog(String loadingText) {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(loadingText);
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setCancelable(false);
-        }
-        mProgressDialog.setMessage(loadingText);
-        mProgressDialog.show();
-    }
-
-    public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        hideProgressDialog();
     }
 }
